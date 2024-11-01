@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Including Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Including Prism.js CSS for dark theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <!-- Including Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>Code Evaluation</title>
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-3">
+        <h1>Refactoring Evaluation</h1>
+    </header>
+    <main class="container mt-4">
+        <section id="code-samples">
+            <p><b>Description:</b> Extract Method public consume() : void extracted from public seek(range Range, columnFamilies Collection<ByteSequence>, inclusive boolean) : void in class org.apache.accumulo.test.functional.MemoryConsumingIterator</p>
+            <div class="row">
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Original Code
+                            <button class="btn btn-info btn-sm float-right" data-toggle="modal" data-target="#originalCodeModal">View</button>
+                        </div>
+                        <div class="card-body">
+                            <pre><code class="language-java">
+     return (int) amountToConsume;
+   }
+ 
+  @Override
+  public void seek(Range range, Collection<ByteSequence> columnFamilies, boolean inclusive)
+      throws IOException {
+    LOG.info("seek called");
+     while (!this.isRunningLowOnMemory()) {
+       int amountToConsume = getAmountToConsume();
+       if (amountToConsume > 0) {
+       }
+     }
+     LOG.info("Running low on memory == true");
+     super.seek(range, columnFamilies, inclusive);
+   }
+ 
+
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12">
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            Refactored Code
+                            <button class="btn btn-info btn-sm float-right" data-toggle="modal" data-target="#refactoredCodeModal">View</button>
+                        </div>
+                        <div class="card-body">
+                            <pre><code class="language-java">
+     return (int) amountToConsume;
+   }
+ 
+  public void consume() throws IOException {
+     while (!this.isRunningLowOnMemory()) {
+       int amountToConsume = getAmountToConsume();
+       if (amountToConsume > 0) {
+       }
+     }
+     LOG.info("Running low on memory == true");
+  }
+
+  @Override
+  public void seek(Range range, Collection<ByteSequence> columnFamilies, boolean inclusive)
+      throws IOException {
+    LOG.info("seek called");
+    consume();
+     super.seek(range, columnFamilies, inclusive);
+   }
+ 
+
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center">
+                <p><b>Is this code apply Extract Method refactoring?</b></p>
+            </div>
+            <div class="text-center btn-group">
+                <button class="btn btn-success btn-spacing" id="submit-rating"><i class="fas fa-check"></i> Agree</button>
+                <button class="btn btn-danger btn-spacing" id="submit-rating"><i class="fas fa-times"></i> Disagree</button>
+                <button class="btn btn-primary btn-spacing" id="submit-rating"><i class="fas fa-question"></i> I don't know</button>
+            </div>
+        </section>
+    </main>
+    <footer class="text-center mt-4">
+        <p>Developed by Henrique from <a target='_blank' href='https://labsoft-ufmg.github.io/'>Labsoft</a></p>
+    </footer>
+    
+    <!-- Modal for Original Code -->
+    <div class="modal fade" id="originalCodeModal" tabindex="-1" role="dialog" aria-labelledby="originalCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg-custom" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="originalCodeModalLabel">Original Code</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <pre><code class="language-java">
+     return (int) amountToConsume;
+   }
+ 
+  @Override
+  public void seek(Range range, Collection<ByteSequence> columnFamilies, boolean inclusive)
+      throws IOException {
+    LOG.info("seek called");
+     while (!this.isRunningLowOnMemory()) {
+       int amountToConsume = getAmountToConsume();
+       if (amountToConsume > 0) {
+       }
+     }
+     LOG.info("Running low on memory == true");
+     super.seek(range, columnFamilies, inclusive);
+   }
+ 
+
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Refactored Code -->
+    <div class="modal fade" id="refactoredCodeModal" tabindex="-1" role="dialog" aria-labelledby="refactoredCodeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg-custom" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="refactoredCodeModalLabel">Refactored Code</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <pre><code class="language-java">
+     return (int) amountToConsume;
+   }
+ 
+  public void consume() throws IOException {
+     while (!this.isRunningLowOnMemory()) {
+       int amountToConsume = getAmountToConsume();
+       if (amountToConsume > 0) {
+       }
+     }
+     LOG.info("Running low on memory == true");
+  }
+
+  @Override
+  public void seek(Range range, Collection<ByteSequence> columnFamilies, boolean inclusive)
+      throws IOException {
+    LOG.info("seek called");
+    consume();
+     super.seek(range, columnFamilies, inclusive);
+   }
+ 
+
+                    </code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prism.js for syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+    <!-- Including Bootstrap JS and dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
