@@ -1,9 +1,7 @@
 ## Requirements
 
 1. **Software Dependencies**:
-   - **Python 3.x** with the following packages:
-     - `python-dotenv` to load environment variables from the `.env` file.
-     - `requests` to interact with the GitHub API.
+   - **Python 3.10+** with packages in `requirements.txt`
    - **Git**: Required to clone repositories.
    - **Java 17**: RefactoringMiner requires Java 17 to perform the analysis.
 
@@ -12,14 +10,14 @@
      - `CSV_PATH`: Path to the CSV file containing the list of repositories to be processed.
      - `CLONE_DIR`: Directory where repositories will be cloned.
      - `JAVA_PATH`: Path to the Java executable.
-     - `GITHUB_OAUTH_TOKEN`: GitHub token for API access.
+    - `REFACTORING_MINER_PATH`: Path to RefactoringMiner
 
 ## Running the Script
 
 1. **Environment Setup**:
    - Ensure all dependencies are installed. You can install the required Python packages with:
      ```bash
-     pip install python-dotenv requests
+     pip install -r requirements.txt
      ```
 
 2. **Configuring the Repositories CSV**:
@@ -28,7 +26,7 @@
 3. **Executing the Script**:
    - After configuring the environment variables in the `.env` file and setting up the repositories CSV, run the script with:
      ```bash
-     python run_rm.py
+     python3 src/run_rm.py
      ```
 
 4. **Script Behavior**:
