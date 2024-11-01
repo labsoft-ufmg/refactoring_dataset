@@ -72,17 +72,9 @@ def process():
 
             if repo_path is None:
                 continue
-            try:
-                # Run RefactoringMiner on the cloned repository
-                run_refactoring_miner(repo_path, repo_name)
-            except subprocess.CalledProcessError as e:
-                error_message = f"Error running RefactoringMiner for {repo_name}: {str(e)}"
-                print(error_message)
-                write_log(repo_name, error_message)
-                continue  # Skip to the next repository
-
+            # Run RefactoringMiner on the cloned repository
+            run_refactoring_miner(repo_path, repo_name)
             write_log(repo_name, f"Processing completed for {repo_name}")
-
     print("All repositories have been processed.")
 
 

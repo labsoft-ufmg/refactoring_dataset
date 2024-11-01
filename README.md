@@ -6,7 +6,7 @@
    - **Java 17**: RefactoringMiner requires Java 17 to perform the analysis.
 
 2. **Environment Variables**:
-   - Create a `.env` file based on `.env.example` and set the variables:
+   - Create a `.env` file based on `.env.example` in `src` folder and set the variables:
      - `CSV_PATH`: Path to the CSV file containing the list of repositories to be processed.
      - `CLONE_DIR`: Directory where repositories will be cloned.
      - `JAVA_PATH`: Path to the Java executable.
